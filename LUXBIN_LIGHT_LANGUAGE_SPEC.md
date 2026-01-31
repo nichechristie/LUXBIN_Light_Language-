@@ -795,4 +795,104 @@ Debug Info (optional):
 
 ---
 
+## 19. Turing Completeness
+
+LUXBIN Light Language is a **Turing-complete** programming language. The following properties guarantee computational universality:
+
+### 19.1 Proof of Turing Completeness
+
+A language is Turing-complete if it can simulate any Turing machine. LUXBIN satisfies all necessary conditions:
+
+1. **Conditional Branching**: The `if`/`then`/`else`/`end` construct provides arbitrary conditional execution based on expression evaluation (Section 12.1).
+
+2. **Unbounded Looping**: The `while`/`do`/`end` construct enables loops that execute an arbitrary number of times based on a runtime condition (Section 12.2). Combined with conditionals, this enables unbounded iteration.
+
+3. **Arbitrary Memory Access**: Variables (`let`, `const`) and arrays (`photon_array`) provide unbounded storage. Arrays can be dynamically grown via `photon_push`, and nested arrays allow simulation of arbitrary data structures including linked lists, trees, and tape-like structures.
+
+4. **Recursion**: Functions (`func`/`end`) support recursive calls with no imposed depth limit (Section 13). Recursion alone, combined with conditionals, is sufficient for Turing completeness.
+
+5. **Integer Arithmetic**: `photon_int` supports 32-bit signed integers with addition, subtraction, multiplication, division, and modulo operations (Section 11.1). This enables encoding and decoding of arbitrary Turing machine states.
+
+### 19.2 Turing Machine Simulation
+
+Any Turing machine M = (Q, Σ, Γ, δ, q0, qaccept, qreject) can be simulated in LUXBIN:
+
+```luxbin
+# Turing Machine simulator in LUXBIN
+# tape: array representing the tape
+# state: current state (integer)
+# head: head position (integer)
+# transition: encoded as nested arrays
+
+func turing_machine(tape, transitions, start_state, accept_state, reject_state)
+    let state = start_state
+    let head = 0
+
+    while state != accept_state and state != reject_state do
+        # Read current symbol
+        let symbol = photon_get(tape, head)
+
+        # Look up transition: (state, symbol) -> (new_state, write_symbol, direction)
+        let transition = lookup(transitions, state, symbol)
+        let new_state = photon_get(transition, 0)
+        let write_sym = photon_get(transition, 1)
+        let direction = photon_get(transition, 2)
+
+        # Write symbol
+        photon_set(tape, head, write_sym)
+
+        # Move head
+        if direction == 1 then
+            head = head + 1
+        else
+            head = head - 1
+        end
+
+        # Extend tape if needed
+        while head >= photon_len(tape) do
+            photon_push(tape, 0)
+        end
+
+        # Update state
+        state = new_state
+    end
+
+    return state == accept_state
+end
+```
+
+### 19.3 Lambda Calculus Equivalence
+
+LUXBIN supports first-class functions through closures (Section 13.3), enabling encoding of the untyped lambda calculus:
+
+- **Abstraction**: `func` definitions create lambda abstractions
+- **Application**: Function calls apply arguments to functions
+- **Variable binding**: `let` provides variable binding with lexical scope
+- **Closures**: Inner functions capture outer scope variables
+
+### 19.4 Computational Equivalence Classes
+
+LUXBIN can simulate and be simulated by:
+- **Turing Machines**: Via tape simulation with arrays (shown above)
+- **Lambda Calculus**: Via closures and recursion
+- **Register Machines**: Via variables as registers and while loops
+- **Cellular Automata**: Via array manipulation in loops (e.g., Rule 110)
+- **µ-recursive Functions**: Via primitive recursion and unbounded search (while loops)
+
+### 19.5 Halting Problem
+
+As a consequence of Turing completeness, LUXBIN is subject to the halting problem: there exists no general algorithm that can determine whether an arbitrary LUXBIN program will terminate. Implementations SHOULD provide configurable execution limits (maximum steps, maximum memory) to prevent runaway computation, but MUST NOT impose hard limits that would compromise Turing completeness for programs within resource bounds.
+
+### 19.6 Quantum Extension and Super-Turing Computation
+
+The quantum extensions (Section 14) provide access to quantum computational primitives. While quantum computing does not exceed the computational power of classical Turing machines in terms of computability (both compute the same class of functions), quantum operations enable:
+
+- **True randomness**: `quantum_measure` provides genuine non-determinism (not pseudo-random)
+- **Exponential speedup**: Certain algorithms (Shor's, Grover's) run exponentially or quadratically faster
+- **Quantum parallelism**: Superposition enables parallel evaluation of function values
+
+The classical subset of LUXBIN (excluding quantum operations) is exactly Turing-complete. The full language with quantum extensions constitutes a **Bounded-error Quantum Polynomial time (BQP)** computational model when executed on quantum hardware.
+
+---
+
 *LUXBIN Light Language Programming Extension v1.0 — Nichole Christie*
