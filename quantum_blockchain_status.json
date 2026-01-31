@@ -1,0 +1,47 @@
+{
+  "network": {
+    "status": "online",
+    "validators": [
+      {
+        "name": "ibm_fez",
+        "location": "Yorktown Heights, NY",
+        "qubits": 156,
+        "queue": 7,
+        "status": "active",
+        "lastValidation": "2026-01-08T11:03:36.212906"
+      },
+      {
+        "name": "ibm_torino",
+        "location": "Yorktown Heights, NY",
+        "qubits": 133,
+        "queue": 0,
+        "status": "active",
+        "lastValidation": "2026-01-08T11:03:36.929188"
+      },
+      {
+        "name": "ibm_marrakesh",
+        "location": "Yorktown Heights, NY",
+        "qubits": 156,
+        "queue": 9618,
+        "status": "active",
+        "lastValidation": "2026-01-08T11:03:38.383517"
+      }
+    ],
+    "totalValidators": 3,
+    "consensusThreshold": 2
+  },
+  "blockchain": {
+    "latestBlock": null,
+    "totalBlocks": 0,
+    "totalTransactions": 0,
+    "pendingTransactions": 1
+  },
+  "quantum": {
+    "activeJobs": 0,
+    "completedJobs": 0,
+    "totalQubitsAvailable": 445,
+    "luxbinEncoding": true,
+    "photomicCommunication": "active"
+  },
+  "timestamp": "2026-01-08T11:03:38.385387"
+}

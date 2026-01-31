@@ -1,9 +1,22 @@
+# LUXBIN Light Language .gitignore
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
+
+# Distribution / packaging
 .Python
+
+# Node.js
+node_modules/
+.next/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
 build/
 develop-eggs/
 dist/
@@ -20,26 +33,54 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual environments
-venv/
-env/
-ENV/
-.venv
+# PyInstaller
+*.manifest
+*.spec
 
-# IDE
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Gradio
-flagged/
-gradio_cached_examples/
+# Light show output files
+quantum_light_show.json
+*_light_show.json
+
+# But keep important config files
+!package.json
+!package-lock.json
+!tsconfig.json
 
 # Logs
 *.log
+.vercel
