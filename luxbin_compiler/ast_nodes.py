@@ -12,7 +12,7 @@ from .errors import SourceLocation
 @dataclass
 class ASTNode:
     """Base class for all AST nodes."""
-    location: Optional[SourceLocation] = field(default=None, repr=False)
+    location: Optional[SourceLocation] = field(default=None, repr=False, kw_only=True)
 
 
 # ============================================================================

@@ -337,3 +337,54 @@ class LuxbinBuiltins:
         if not isinstance(q, dict) or q.get("__type__") != "qubit":
             return False
         return True
+
+
+# Module-level BUILTINS dict expected by the VM: {name: (callable, num_args)}
+_instance = LuxbinBuiltins()
+BUILTINS = {
+    # I/O
+    "photon_print": (_instance._photon_print, -1),
+    "photon_input": (_instance._photon_input, 1),
+    "photon_read": (_instance._photon_read, 1),
+    "photon_write": (_instance._photon_write, 2),
+    # Math
+    "photon_abs": (_instance._photon_abs, 1),
+    "photon_sqrt": (_instance._photon_sqrt, 1),
+    "photon_pow": (_instance._photon_pow, 2),
+    "photon_sin": (_instance._photon_sin, 1),
+    "photon_cos": (_instance._photon_cos, 1),
+    "photon_tan": (_instance._photon_tan, 1),
+    "photon_floor": (_instance._photon_floor, 1),
+    "photon_ceil": (_instance._photon_ceil, 1),
+    "photon_round": (_instance._photon_round, 1),
+    "photon_min": (_instance._photon_min, 2),
+    "photon_max": (_instance._photon_max, 2),
+    # String/Wavelength
+    "photon_len": (_instance._photon_len, 1),
+    "photon_concat": (_instance._photon_concat, 2),
+    "photon_slice": (_instance._photon_slice, 3),
+    "photon_wavelength": (_instance._photon_wavelength, 1),
+    "photon_char": (_instance._photon_char, 1),
+    "photon_upper": (_instance._photon_upper, 1),
+    "photon_lower": (_instance._photon_lower, 1),
+    "photon_to_int": (_instance._photon_to_int, 1),
+    "photon_to_float": (_instance._photon_to_float, 1),
+    "photon_to_string": (_instance._photon_to_string, 1),
+    "photon_to_bool": (_instance._photon_to_bool, 1),
+    # Array
+    "photon_array": (_instance._photon_array, 1),
+    "photon_push": (_instance._photon_push, 2),
+    "photon_pop": (_instance._photon_pop, 1),
+    "photon_get": (_instance._photon_get, 2),
+    "photon_set": (_instance._photon_set, 3),
+    "photon_sort": (_instance._photon_sort, 1),
+    "photon_reverse": (_instance._photon_reverse, 1),
+    # Quantum
+    "quantum_superpose": (_instance._quantum_superpose, -1),
+    "quantum_measure": (_instance._quantum_measure, 1),
+    "quantum_entangle": (_instance._quantum_entangle, 2),
+    "quantum_hadamard": (_instance._quantum_hadamard, 1),
+    "quantum_cnot": (_instance._quantum_cnot, 2),
+    "quantum_phase": (_instance._quantum_phase, 2),
+    "quantum_teleport": (_instance._quantum_teleport, 2),
+}
