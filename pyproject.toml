@@ -42,7 +42,8 @@ luxbin = "luxbin_compiler.cli:main"
 luxbin-translate = "web_translator.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/nichechristie/luxbin-light-language"
+Homepage = "https://luxbin-light-language.vercel.app/"
+Repository = "https://github.com/nichechristie/LUXBIN_Light_Language-"
 
 [tool.setuptools]
 packages = ["luxbin_compiler", "web_translator"]
